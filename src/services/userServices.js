@@ -14,21 +14,33 @@ export class UserService {
     }
 
     addUser(data) {
-        data.id = uuidv4();
-        return this.userRepository.addUser(data);
-    }
+        if(!this.userRepository.findUserByEmail(data.email)){
+            data.id = uuidv4();
+            return this.userRepository.addUser(data);
+        }else{
+            return `User with the e-mail ${data.email} already registered.`
+        }
+       }
 
-    editUserById(user, firstName, lastName, age, gender) {
+    editUserById(user, firstName, lastName, age, email, gender) {
         if(firstName) user.firstName = firstName; 
         if(lastName) user.lastName = lastName;
         if(age) user.age = age;
-        if(gender) user.gender = lastName;
+        if(email) user.email = email;
+        if(gender) user.gender = gender;
         return user;
-
     }
 
-    deleteUserById(req, res){
-
+    deleteUserById(userIndex){
+        if(userIndex !== -1){
+            return this.userRepository.deleteUserById(userIndex);
+        }else{
+            return 'User not found';
+        }
     }
 
-}
+    findUserIndexById(id) {
+        return this.userRepository.findUserIndexById(id);
+    }
+
+} 

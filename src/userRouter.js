@@ -19,8 +19,6 @@ router.post('/', (req, res) => res.send(userController.addUser(req.body)));
 
 router.patch('/:id', (req, res) => res.send(userController.editUserById(req.params, req.body)));
 
-router.delete('/:id', (req, res) => userController.deleteUserById(req.params))
-
-
+router.delete('/:id', (req, res) => res.send(userController.deleteUserById(req.params)));
 
 export default router;

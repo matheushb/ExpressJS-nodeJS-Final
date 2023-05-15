@@ -17,12 +17,13 @@ export class UserController {
     }
 
     editUserById(tempId, data) {
-        const user = this.getUserById(tempId)
-        const { firstName, lastName, age, gender } = data;
-        return this.userService.editUserById(user, firstName, lastName, age, gender);
+        const user = this.getUserById(tempId);
+        const { firstName, lastName, age, email, gender } = data;
+        return this.userService.editUserById(user, firstName, lastName, age, email, gender);
     }
 
-    deleteUserById(req, res){
-
+    deleteUserById(tempId){
+        const userIndex = this.userService.findUserIndexById(tempId.id);
+        return this.userService.deleteUserById(userIndex)
     }
 }
