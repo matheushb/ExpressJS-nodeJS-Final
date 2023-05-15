@@ -22,7 +22,11 @@ export class UserService {
         }
        }
 
-    editUserById(user, firstName, lastName, age, email, gender) {
+    editUserById(tempId, data) {
+        const { id } = tempId;
+        const user = this.getUserById(id);
+        const { firstName, lastName, age, email, gender } = data;
+        
         if(firstName) user.firstName = firstName; 
         if(lastName) user.lastName = lastName;
         if(age) user.age = age;
